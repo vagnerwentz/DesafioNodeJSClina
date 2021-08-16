@@ -12,12 +12,14 @@ describe("Users Repository", () => {
         const user = usersRepository.create({
             name: 'John Doe',
             email: 'johndoe@email.com',
+            password: 'password',
             avatar: 'johndoeavatar',
         });
 
         expect(user).toMatchObject({
             name: 'John Doe',
             email: 'johndoe@email.com',
+            password: 'password',
             avatar: 'johndoeavatar',
         });
 
@@ -30,6 +32,7 @@ describe("Users Repository", () => {
         const user = usersRepository.create({
             name: 'John Doe',
             email: 'johndoe@email.com',
+            password: 'password',
             avatar: 'johndoeavatar',
         });
 
