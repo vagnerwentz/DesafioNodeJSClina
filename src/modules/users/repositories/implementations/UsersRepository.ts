@@ -1,41 +1,30 @@
+import { getRepository, Repository } from 'typeorm';
+
 import { User } from "../../model/User";
 import { IUsersRepository, ICreateUserDTO } from "../IUsersRepository";
 
 class UsersRepository implements IUsersRepository {
-    private users: User[];
+    private ormRepository: Repository<User>;
 
-    private constructor() {
-        this.users = [];
-    }
-    
-    private static INSTANCE: UsersRepository;
-
-    public static getInstance(): UsersRepository {
-        if (!UsersRepository.INSTANCE) {
-            UsersRepository.INSTANCE = new UsersRepository();
-        }
-
-        return UsersRepository.INSTANCE;
+    constructor() {
+        this.ormRepository = getRepository(User);
     }
 
-    create({ name, email, avatar }: ICreateUserDTO): User {
-        const user = new User();
-
-        Object.assign(user, {
+    public async create({ name, email, password, avatar }: ICreateUserDTO): Promise<User> {
+        const user = this.ormRepository.create({
             name,
             email,
-            avatar,
-            created_at: new Date(),
-            updated_at: new Date(),
+            password,
+            avatar
         });
 
-        this.users.push(user);
+        await this.ormRepository.save(user);
 
         return user;
     }
 
-    list(): User[] {
-        return this.users;
+    public async list(): Promise<User[]> {
+        return this.ormRepository.find();
     }
 }
 
