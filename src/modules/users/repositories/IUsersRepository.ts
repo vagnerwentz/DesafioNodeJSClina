@@ -8,6 +8,7 @@ interface ICreateUserDTO {
 
 interface IUsersRepository {
     create({ name, email, avatar }: ICreateUserDTO): User;
+    list(): User[];
 }
 
 export { IUsersRepository, ICreateUserDTO };
