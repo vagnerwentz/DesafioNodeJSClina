@@ -7,7 +7,7 @@ class UsersRepository implements IUsersRepository {
     private constructor() {
         this.users = [];
     }
-
+    
     private static INSTANCE: UsersRepository;
 
     public static getInstance(): UsersRepository {
@@ -32,6 +32,10 @@ class UsersRepository implements IUsersRepository {
         this.users.push(user);
 
         return user;
+    }
+
+    list(): User[] {
+        return this.users;
     }
 }
 
