@@ -13,9 +13,7 @@ usersRoutes.post("/", async (request, response) => {
 
 usersRoutes.get("/", async (request, response) => {
     const users = await listUserController().handle(request, response);
-    return response.status(200).json(
-        users
-    );
+    return response.status(200).json({message: users});
 });
 
 export { usersRoutes };
