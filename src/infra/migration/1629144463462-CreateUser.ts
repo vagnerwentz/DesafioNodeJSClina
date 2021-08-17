@@ -23,11 +23,6 @@ export class CreateUser1629144463462 implements MigrationInterface {
                         type: 'varchar'
                     },
                     {
-                        name: 'avatar',
-                        type: 'varchar',
-                        isNullable: true
-                    },
-                    {
                         name: 'password',
                         type: 'varchar'
                     },
