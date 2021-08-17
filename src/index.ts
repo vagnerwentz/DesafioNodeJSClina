@@ -1,6 +1,10 @@
 import "reflect-metadata";
-import "./infra/typeorm";
+import connection from "./infra/typeorm";
 import express from "express";
+
+(async () => {
+    await connection.create();
+})
 
 import { usersRoutes } from "./routes/users.routes";
 
