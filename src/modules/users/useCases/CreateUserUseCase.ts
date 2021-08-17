@@ -1,18 +1,22 @@
-import { User } from '../model/User';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 interface IRequest {
     name: string;
     email: string;
     password: string;
-    avatar: string;
 }
 
 class CreateUserUseCase {
-    constructor(private usersRepository: IUsersRepository) {}
+    constructor(private usersRepository: IUsersRepository) { }
 
-    async execute({ name, email, password, avatar }: IRequest): Promise<User> {
-        return await this.usersRepository.create({ name, email, password, avatar });
+    async execute({ name, email, password }: IRequest): Promise<void> {
+        const userAlreadyExists = await this.usersRepository.findByEmail(email);
+
+        if (userAlreadyExists) {
+            throw new Error("User already exists");
+        }
+
+        return await this.usersRepository.create({ name, email, password });
     }
 }
 
