@@ -1,12 +1,34 @@
-version: '3'
-services:
+version: '3.7'
 
-  postgres:
-    image: "postgres:9.6.1"
+services:
+  database_clina:
+    image: postgres
+    container_name: database_clina
+    restart: always
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: "test"
-      POSTGRES_PASSWORD: "test"
-      POSTGRES_DB: "test"
+      POSTGRES_USER: "docker"
+      POSTGRES_PASSWORD: "clina"
+      POSTGRES_DB: "clina"
+    volumes:
+      - pgdata:/data/postgres
+    
+  
+  app:
+    build: .
+    container_name: clina
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/usr/app
+    links:
+      - database_clina
+    depends_on: 
+      - database_clina
+    
+
+volumes:
+  pgdata:
+    driver: local
 
