@@ -1,6 +1,4 @@
-import { validate } from 'uuid';
-
-import { User } from '../../../modules/users/model/User';
+import { User } from '../../../modules/users/entities/User';
 
 describe("User Model", () => {
     it("should be able to create an user with all props", () => {
@@ -20,7 +18,6 @@ describe("User Model", () => {
             avatar: "avatar-string",
         });
 
-        expect(validate(user.id)).toBe(true);
         expect(user.created_at).toBeInstanceOf(Date);
         expect(user.updated_at).toBeInstanceOf(Date);
     })
