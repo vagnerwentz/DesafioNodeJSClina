@@ -1,13 +1,13 @@
+import { validate } from 'uuid';
 import { User } from '../../../modules/users/entities/User';
 
-describe("User Model", () => {
+describe("Model | User", () => {
     it("should be able to create an user with all props", () => {
         const user = new User();
 
         Object.assign(user, {
             name: "John Doe",
             email: "johndoe@email.com",
-            avatar: "avatar-string",
             created_at: new Date(),
             updated_at: new Date(),
         });
@@ -15,9 +15,9 @@ describe("User Model", () => {
         expect(user).toMatchObject({
             name: "John Doe",
             email: "johndoe@email.com",
-            avatar: "avatar-string",
         });
 
+        expect(validate(user.id)).toBe(true);
         expect(user.created_at).toBeInstanceOf(Date);
         expect(user.updated_at).toBeInstanceOf(Date);
     })
