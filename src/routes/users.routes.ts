@@ -1,26 +1,21 @@
 import { Router } from 'express';
-import multer from 'multer';
 
-import { createUserController } from '../modules/users';
-
-import { UsersRepository } from '../modules/users/repositories/implementations/UsersRepository';
+import createUserController from '../modules/users/controllers/createUserController';
+import listUserController from '../modules/users/controllers/listUserController';
 
 const usersRoutes = Router();
 
-const upload = multer({
-    dest: 'tmp/'
-});
-
-usersRoutes.post("/", (request, response) => {
-    createUserController.handle(request, response);
+usersRoutes.post("/", async (request, response) => {
+    await createUserController().handle(request, response);
 
     return response.status(200).send();
 });
 
-usersRoutes.get("/", (request, response) => {
-    // const usersRepository = UsersRepository.getInstance();
-
-    // return response.status(200).json(usersRepository.list());
+usersRoutes.get("/", async (request, response) => {
+    const users = await listUserController().handle(request, response);
+    return response.status(200).json(
+        users
+    );
 });
 
 export { usersRoutes };
