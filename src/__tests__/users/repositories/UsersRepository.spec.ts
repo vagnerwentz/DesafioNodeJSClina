@@ -1,19 +1,18 @@
-import { User } from 'src/modules/users/entities/User';
 import connection from '../../../infra/typeorm';
 import { UsersRepository } from "../../../modules/users/repositories/implementations/UsersRepository";
 
 let usersRepository: UsersRepository;
 
 describe("Repository | User", () => {
-    beforeAll(async ()=>{
+    beforeAll(async () => {
         await connection.create();
         usersRepository = new UsersRepository();
     });
-      
-    afterAll(async ()=> {
+
+    afterAll(async () => {
         await connection.close();
     });
-    
+
     beforeEach(async () => {
         await connection.clear();
     });
@@ -23,8 +22,6 @@ describe("Repository | User", () => {
             name: 'John Doe',
             email: 'john@email.com',
             password: 'john',
-            created_at: new Date(),
-            updated_at: new Date(),
         };
 
         await usersRepository.create(user);
@@ -35,48 +32,37 @@ describe("Repository | User", () => {
     });
 
     it("should be able to list all users", async () => {
-        const firstUser: User = {
+        const firstUser = {
             name: 'John Doe',
             email: 'john@email.com',
             password: 'john',
-            created_at: new Date(),
-            updated_at: new Date()
         };
 
-        const secondUser: User = {
+        const secondUser = {
             name: 'Ana Linz',
             email: 'ana@email.com',
             password: 'ana',
-            created_at: new Date(),
-            updated_at: new Date()
         };
 
-        await usersRepository.create(firstUser);        
+        await usersRepository.create(firstUser);
         await usersRepository.create(secondUser);
 
-        expect(await usersRepository.list()).toEqual(
-            expect.arrayContaining([
-              expect.objectContaining({email: 'john@email.com'}),
-              expect.objectContaining({email: 'ana@email.com'})
-            ])
-          );
+        const users = await usersRepository.list();
+
+        users.forEach((user, index) => expect(user).toEqual(users[index]));
     });
 
-    it("should be able find an user with the findByEmail method", async () => {
-        const user: User = {
+    it("should be able to find an user with the findByEmail method", async () => {
+        const user = {
             name: 'John Doe',
             email: 'john@email.com',
             password: 'john',
-            created_at: new Date(),
-            updated_at: new Date()
         };
 
-        await usersRepository.create(user);        
+        await usersRepository.create(user);
 
         const userFound = await usersRepository.findByEmail(user.email);
 
-        console.log(user);
-
-        expect(userFound).toEqual(user);
+        expect(userFound.email).toEqual(user.email);
     });
 });

@@ -1,4 +1,3 @@
-import { validate } from 'uuid';
 import { User } from '../../../modules/users/entities/User';
 
 describe("Model | User", () => {
@@ -17,7 +16,6 @@ describe("Model | User", () => {
             email: "johndoe@email.com",
         });
 
-        expect(validate(user.id)).toBe(true);
         expect(user.created_at).toBeInstanceOf(Date);
         expect(user.updated_at).toBeInstanceOf(Date);
     })

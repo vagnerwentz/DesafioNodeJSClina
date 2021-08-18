@@ -26,32 +26,32 @@ describe("Use Case | Create User", () => {
 
     const userCreated = await usersRepositoryInMemory.findByEmail(user.email);
 
-    expect(userCreated).toHaveProperty('id');
+    expect(user).toEqual(userCreated);
   });
 
   it("should not be able to create a new user if user already exists", async () => {
-      const user = {
-        name: 'John Doe',
-        email: 'johndoe@email.com',
-        password: 'johndoepassword'
-      };
+    const user = {
+      name: 'John Doe',
+      email: 'johndoe@email.com',
+      password: 'johndoepassword'
+    };
 
-      const userIsNotAbleToBeCreated = {
-        name: 'Ana Lin',
-        email: 'johndoe@email.com',
-        password: 'Ana Lin'
-      };
+    const userIsNotAbleToBeCreated = {
+      name: 'Ana Lin',
+      email: 'johndoe@email.com',
+      password: 'Ana Lin'
+    };
 
-      await createUserUseCase.execute({
-        name: user.name,
-        email: user.email,
-        password: user.password
-      });
+    await createUserUseCase.execute({
+      name: user.name,
+      email: user.email,
+      password: user.password
+    });
 
-      await expect(createUserUseCase.execute({
-        name: userIsNotAbleToBeCreated.name,
-        email: userIsNotAbleToBeCreated.email,
-        password: userIsNotAbleToBeCreated.password
-      })).rejects.toBeInstanceOf(Error);
+    await expect(createUserUseCase.execute({
+      name: userIsNotAbleToBeCreated.name,
+      email: userIsNotAbleToBeCreated.email,
+      password: userIsNotAbleToBeCreated.password
+    })).rejects.toBeInstanceOf(Error);
   });
 });
