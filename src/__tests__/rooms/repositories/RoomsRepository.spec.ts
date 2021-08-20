@@ -79,7 +79,6 @@ describe("Repository | Room", () => {
 
   it("should be able to list a specific room using the room id", async () => {
     const roomOne = {
-      id: 'fakeId',
       name: "Room",
       description: "Description Room",
       publicArea: "Public Area Room",
@@ -89,19 +88,12 @@ describe("Repository | Room", () => {
       state: "PR",
       city: "Foz do Iguaçu",
       district: "Room District",
-      created_at: new Date(),
-      updated_at: new Date()
     };
-    const roomSpy = jest.spyOn(roomsRepository, 'create').mockReturnValue(
-      new Promise((resolve) => roomOne)
-    );
-
-    console.log(roomSpy);
 
     const room = await roomsRepository.create(roomOne);
 
-
-
-    expect(roomSpy).toEqual(room);
+    expect(room).toHaveProperty('id');
+    expect(room).toHaveProperty('created_at');
+    expect(room).toHaveProperty('updated_at');
   });
 });

@@ -1,0 +1,32 @@
+Agendas
+• A Agenda deve ser disponibilizada por dia e período (manhã, tarde e noite).;
+• Cada agenda deve estar associada a uma sala;
+• A Agenda deve contar informações de estado (disponível, indisponível e reservada);
+• Não é possível replicar agenda para o mesmo dia, período e sala;
+• O cadastro das agendas pode ser feito manualmente no banco de dados;
+
+Requisitos
+• GET / - retorna status 200 e um corpo de reposta em branco;
+• GET /room?date=2021-05-01 - retorna uma lista de salas com disponibilidade para o dia
+especifico;
+• GET /room/:id – retorna os detalhes de uma sala específica.;
+• POST /auth - autenticação do usuário (retorna 200 com um corpo que contém o token jwt );
+• GET /schedule/:roomId – obter as reservas disponíveis para a uma sala;
+• POST /schedule - realiza a reserva da agenda;
+
+
+Sala -> 20/03/2021 && 21/03/2021
+
+Agenda 1:N 2021-05-01 no período da manhã na sala X está disponível
+
+schedule_id
+period
+data
+room_id
+
+
+A sala X tem disponibilidade para o dia 20/03/2021 no período da manhã, tarde e noite.
+Fizemos uma reserva no período da manhã
+A sala X tem disponibilidade para o dia 20/03/2021 no período da tarde e noite.
+Uma agenda do dia 20/03/2021 no período da manhã tem a sala X reservada
+Uma agenda no dia 20/03/2021 no período da tarde tem a sala X reservada
