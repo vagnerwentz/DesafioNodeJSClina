@@ -1,16 +1,15 @@
-
 import { createConnection, getConnection } from 'typeorm';
 
 const connection = {
-  async create(){
+  async create() {
     await createConnection();
   },
 
-  async close(){
-    await getConnection().close(); 
+  async close() {
+    await getConnection().close();
   },
 
-  async clear(){
+  async clear() {
     const connection = getConnection();
     const entities = connection.entityMetadatas;
 

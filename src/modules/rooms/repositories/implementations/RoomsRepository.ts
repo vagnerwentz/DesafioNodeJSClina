@@ -17,11 +17,11 @@ class RoomsRepository implements IRoomsRepository {
     return room;
   }
 
-  list(): Promise<Room[]> {
-    throw new Error("Method not implemented.");
+  async list(): Promise<Room[]> {
+    return await this.repository.find();
   }
 
-  findById(id: string): Promise<Room> {
+  async findById(id: string): Promise<Room> {
     return this.repository.findOne(id);
   }
 
