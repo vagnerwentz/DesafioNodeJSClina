@@ -15,13 +15,11 @@ export class CreateSchedule1629464351684 implements MigrationInterface {
           },
           {
             name: "period",
-            type: "enum",
-            enum: ['manhã', 'tarde', 'noite']
+            type: "varchar",
           },
           {
             name: "status",
-            type: "enum",
-            enum: ['disponível', 'indisponível', 'reservada']
+            type: "varchar",
           },
           {
             name: "date",
@@ -46,16 +44,16 @@ export class CreateSchedule1629464351684 implements MigrationInterface {
       ),
     );
     await queryRunner.createForeignKey(
-        'schedules',
-        new TableForeignKey({
-          name: 'ScheduleRoom',
-          columnNames: ['room_id'],
-          referencedColumnNames: ['id'],
-          referencedTableName: 'rooms',
-          onDelete: 'SET NULL',
-          onUpdate: 'CASCADE',
-        }),
-      );
+      'schedules',
+      new TableForeignKey({
+        name: 'ScheduleRoom',
+        columnNames: ['room_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'rooms',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
